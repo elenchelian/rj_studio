@@ -47,7 +47,11 @@ dependencies:
   shared_preferences: ^2.1.0
   http: ^0.13.4
   full_screen_image: ^2.0.0
-  syncfusion_flutter_calendar: ^21.1.41
+  calendar_builder: ^0.0.6
+  fluttertoast: ^8.2.1
+  date_time_picker: ^2.1.0
+  flutter_credit_card: ^3.0.6
+  a_colors: ^0.0.2
 
 dev_dependencies:
   flutter_test:

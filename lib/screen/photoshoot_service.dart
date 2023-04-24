@@ -77,7 +77,7 @@ Widget buildCart(List<PhotoShootService> services)=> ListView.builder(
       Navigator.push(context, MaterialPageRoute(builder: (context) => Service_Booking()));
           final prefs = await SharedPreferences.getInstance();
           prefs.setString('package_name',ser.package_name);
-          prefs.setString('price',ser.package_name);
+          prefs.setString('price',ser.price);
           prefs.setString('line1',ser.line1);
           prefs.setString('line2', ser.line2);
           prefs.setString('line3', ser.line3);
