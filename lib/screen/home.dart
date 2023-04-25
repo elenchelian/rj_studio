@@ -4,6 +4,7 @@ import 'package:line_icons/line_icon.dart';
 import 'package:rj_studio/background/allbackground.dart';
 import 'package:rj_studio/screen/photoshoot_service.dart';
 import 'package:rj_studio/screen/printing_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,8 +20,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _get();
+      setState(() {
+        build(context);
+      });
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -268,6 +275,11 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  _get() async{
+    final pref = await SharedPreferences.getInstance();
+    name = pref.getString('custName')!;
   }
 
 

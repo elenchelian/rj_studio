@@ -12,6 +12,17 @@ class CallApi{
 
   final String _urlphotoalbum = 'http://10.0.2.2:8000/api/list';
 
+
+  LoginData(data,apiURL) async{
+    String fullUrl = 'http://10.0.2.2:8000/api/login';
+    print(convert.jsonEncode(data));
+    return await http.post(
+        Uri.parse(fullUrl),
+        body: convert.jsonEncode(data),
+        headers: _setHeaders()
+    );
+  }
+
   static Future<List<PhotoAlbum>> getStandardPrint()async{
     final prefs = await SharedPreferences.getInstance();
     var data = 'standard_print';

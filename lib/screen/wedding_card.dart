@@ -83,30 +83,46 @@ Widget buildCart(List<WeddingCard> services)=> ListView.builder(
         borderRadius: BorderRadius.circular(12.0),
       ),
       color: Color(0xFF6FA9FC),
-      child: ListTile(
-        leading: CircleAvatar(
-          radius: 28.0,
-          backgroundImage: NetworkImage(ser.image),
-          child: GestureDetector(onTap: () {
-            Dialog(
-              child: Container(
-                width: 200,
-                height: 200,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(ser.image),
-                        fit: BoxFit.cover
-                    )
-                ),
-              ),
-            );
-          }
+      child: Column(
+        children: [
+          SizedBox(height: 10),
+          Container(
+            width: 350,
+              height: 220,
+              child: Image.network(ser.image)
           ),
-        ),
-        title: Text(ser.design_name,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),),
-        subtitle: Text('Price RM : '+ser.price ,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
-        // isThreeLine: true,
+          SizedBox(height: 5),
+          Text(ser.design_name,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),),
+          SizedBox(height: 5),
+          Text('Price RM : '+ser.price ,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+          SizedBox(height: 10),
+        ],
       ),
+
+      // child: ListTile(
+      //   leading: CircleAvatar(
+      //     radius: 28.0,
+      //     backgroundImage: NetworkImage(ser.image),
+      //     child: GestureDetector(onTap: () {
+      //       Dialog(
+      //         child: Container(
+      //           width: 200,
+      //           height: 200,
+      //           decoration: BoxDecoration(
+      //               image: DecorationImage(
+      //                   image: NetworkImage(ser.image),
+      //                   fit: BoxFit.cover
+      //               )
+      //           ),
+      //         ),
+      //       );
+      //     }
+      //     ),
+      //   ),
+      //   title: Text(ser.design_name,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),),
+      //   subtitle: Text('Price RM : '+ser.price ,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+      //   // isThreeLine: true,
+      // ),
     );
   },
 

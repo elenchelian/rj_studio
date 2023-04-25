@@ -8,6 +8,7 @@ import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutter_credit_card/glassmorphism_config.dart';
 import 'package:rj_studio/background/allbackground.dart';
 import 'package:rj_studio/screen/confirm_booking.dart';
+import 'package:rj_studio/screen/payment_Suc.dart';
 
 class Credit_Card extends StatefulWidget {
   const Credit_Card({Key? key}) : super(key: key);
@@ -301,6 +302,9 @@ class _Credit_CardState extends State<Credit_Card> {
   void _onValidate() {
     if (formKey.currentState!.validate()) {
       print('valid!');
+      Navigator.push(context,
+          MaterialPageRoute(builder:(context)=>Payment_Successfull())
+      );
     } else {
       print('invalid!');
     }

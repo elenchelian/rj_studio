@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rj_studio/screen/credit_card.dart';
+import 'package:rj_studio/screen/home.dart';
+import 'package:rj_studio/screen/nav/NavPage.dart';
 import 'package:rj_studio/screen/photoshoot_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -266,7 +268,7 @@ class _Confirm_BookingState extends State<Confirm_Booking> {
                                 splashColor: Color(0xFF7DA0FA),
                                 onTap: () {
                                   Navigator.push(context,
-                                      MaterialPageRoute(builder:(context)=>Photoshoot_Service())
+                                      MaterialPageRoute(builder:(context)=>NavPage())
                                   );
                                 },
                                 child: const Center(
