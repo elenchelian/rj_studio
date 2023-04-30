@@ -35,9 +35,9 @@ class _NavPageState extends State<NavPage> {
       case 1:
         return MyBooking_Page();
       case 2:
-        return Profile_Page();
-      case 3:
         return About_Us();
+      case 3:
+        return Profile_Page();
       default:
         return HomePage();
     }
@@ -66,16 +66,17 @@ class _NavPageState extends State<NavPage> {
           inactiveColor: inactiveColor,
         ),
         BottomNavyBarItem(
-          title: Text('Profile'),
-          textAlign: TextAlign.center,
-          icon: LineIcon.userCircle(),
-          activeColor: color,
-          inactiveColor: inactiveColor,
-        ),
-        BottomNavyBarItem(
           title: Text('About Us'),
           textAlign: TextAlign.center,
           icon: LineIcon.infoCircle(),
+          activeColor: color,
+          inactiveColor: inactiveColor,
+
+        ),
+        BottomNavyBarItem(
+          title: Text('Profile'),
+          textAlign: TextAlign.center,
+          icon: LineIcon.userCircle(),
           activeColor: color,
           inactiveColor: inactiveColor,
         ),

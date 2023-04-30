@@ -1,18 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-// import 'package:example/app_colors.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/credit_card_form.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:flutter_credit_card/custom_card_type_icon.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutter_credit_card/glassmorphism_config.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rj_studio/background/allbackground.dart';
 import 'package:rj_studio/screen/confirm_booking.dart';
 import 'package:rj_studio/screen/payment_Suc.dart';
+import 'package:rj_studio/.env';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../CallApi/CallApi.dart';
 
 class Credit_Card extends StatefulWidget {
-  const Credit_Card({Key? key}) : super(key: key);
 
+  const Credit_Card({Key? key}) : super(key: key);
   @override
   State<Credit_Card> createState() => _Credit_CardState();
 }
@@ -28,8 +35,17 @@ class _Credit_CardState extends State<Credit_Card> {
   OutlineInputBorder? border;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  String name='';
+  String email='';
+  String package='';
+  String date='';
+  String price='';
+  String category='photoshoot';
+  String phoneNumber='';
+
   @override
   void initState() {
+    _get();
     border = OutlineInputBorder(
       borderSide: BorderSide(
         color: Colors.grey.withOpacity(0.7),
@@ -78,7 +94,6 @@ class _Credit_CardState extends State<Credit_Card> {
               // color: Colors.blueAccent,
             ),
             child: SafeArea(
-
               child: Column(
                 children: <Widget>[
                   const SizedBox(
@@ -255,6 +270,7 @@ class _Credit_CardState extends State<Credit_Card> {
                           SizedBox(height: 30,),
                           GestureDetector(
                             onTap: (){
+
                               Navigator.push(context,
                                   MaterialPageRoute(builder:(context)=>Confirm_Booking())
                               );
@@ -299,15 +315,42 @@ class _Credit_CardState extends State<Credit_Card> {
     );
   }
 
-  void _onValidate() {
+  void _onValidate() async{
+
     if (formKey.currentState!.validate()) {
-      print('valid!');
-      Navigator.push(context,
-          MaterialPageRoute(builder:(context)=>Payment_Successfull())
-      );
+      var data = {
+        'name':name,
+        'email':email,
+        'phonenum':phoneNumber,
+        'package':package,
+        'price':price,
+        'date':date,
+        'category':category
+      };
+
+      var res = await CallApi().BookingSet(data,'register');
+      var getVal = json.decode(res.body);
+      if(getVal['success']){
+        Fluttertoast.showToast(msg: "The Booking Successful");
+        Navigator.push(context,
+            MaterialPageRoute(builder:(context)=>Payment_Successfull())
+        );
+      }else{
+        Fluttertoast.showToast(msg: "Cannot Proceed the Booking");
+      }
     } else {
       print('invalid!');
     }
+  }
+
+  _get() async{
+    final pref = await SharedPreferences.getInstance();
+    name = pref.getString('custName')!;
+    email=pref.getString('custEmail')!;
+    phoneNumber=pref.getString('custPhoneNumber')!;
+    package=pref.getString('package_name')!;
+    price = pref.getString('price')!;
+    date = pref.getString('date')!;
   }
 
   void onCreditCardModelChange(CreditCardModel? creditCardModel) {
@@ -318,6 +361,12 @@ class _Credit_CardState extends State<Credit_Card> {
       cvvCode = creditCardModel.cvvCode;
       isCvvFocused = creditCardModel.isCvvFocused;
     });
+  }
+
+  void _stripe() async{
+    WidgetsFlutterBinding.ensureInitialized();
+    Stripe.publishableKey = stripePublishableKey;
+    await Stripe.instance.applySettings();
   }
 }
 

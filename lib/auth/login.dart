@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rj_studio/CallApi/CallApi.dart';
 import 'package:rj_studio/auth/register.dart';
 import 'package:rj_studio/screen/home.dart';
@@ -200,10 +201,10 @@ class _LoginScreenState extends State<LoginScreen> {
       password=prefs.getString('custPassword')!;
       phoneNumber=prefs.getString('custPhoneNumber')!;
       print('Geting userinfo'+name+email+password+phoneNumber);
+      Fluttertoast.showToast(msg: "Login Successfully");
       Navigator.push(context, MaterialPageRoute(builder: (context)=>NavPage()));
     }else{
-
-      print('Login Failed');
+      Fluttertoast.showToast(msg: "Invalid Credential");
     }
 
   }

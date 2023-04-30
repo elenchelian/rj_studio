@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rj_studio/screen/nav/NavPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../CallApi/PdfApi.dart';
 import '../background/allbackground.dart';
@@ -13,6 +14,25 @@ class Payment_Successfull extends StatefulWidget {
 }
 
 class _Payment_SuccessfullState extends State<Payment_Successfull> {
+
+  var getPackagename = '';
+  var getPrice = '';
+  var getCustName = '';
+  var getCustPhoneNumber = '';
+  var getDate = '';
+
+  @override
+  void initState() {
+    super.initState();
+    // setName=UserSharedPreference.getName();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _get();
+      setState(() {
+        build(context);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Color bgcolor = Color(0xFFFFFFFF);
@@ -47,8 +67,8 @@ class _Payment_SuccessfullState extends State<Payment_Successfull> {
 
                 Container(
                   alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  child: Center(
                     // margin: const EdgeInsets.fromLTRB(20, 0, 20, 30),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -155,7 +175,7 @@ class _Payment_SuccessfullState extends State<Payment_Successfull> {
                             Column(
                               children: [
                                 Text(
-                                  'Display Cust Name',
+                                  getCustName,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,
@@ -163,7 +183,7 @@ class _Payment_SuccessfullState extends State<Payment_Successfull> {
                                 ),
                                 SizedBox(height: 15,),
                                 Text(
-                                  'Display Cust no',
+                                  getCustPhoneNumber,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,
@@ -171,7 +191,7 @@ class _Payment_SuccessfullState extends State<Payment_Successfull> {
                                 ),
                                 SizedBox(height: 15,),
                                 Text(
-                                  'Display Packge Name',
+                                  getPackagename,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,
@@ -179,7 +199,7 @@ class _Payment_SuccessfullState extends State<Payment_Successfull> {
                                 ),
                                 SizedBox(height: 15,),
                                 Text(
-                                  'Dsiplay DateTime',
+                                  getDate,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,
@@ -187,7 +207,7 @@ class _Payment_SuccessfullState extends State<Payment_Successfull> {
                                 ),
                                 SizedBox(height: 15,),
                                 Text(
-                                  'Display Amount',
+                                  getPrice,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,
@@ -284,4 +304,14 @@ class _Payment_SuccessfullState extends State<Payment_Successfull> {
     final pdfFile = await PdfApi.generateTable();
     PdfApi.openFile(pdfFile);
 }
+
+  _get() async {
+    final pref = await SharedPreferences.getInstance();
+    getPackagename = pref.getString('package_name')!;
+    getPrice = pref.getString('price')!;
+    getDate = pref.getString('date')!;
+    getCustName = pref.getString('custName')!;
+    getCustPhoneNumber = pref.getString('custPhoneNumber')!;
+
+  }
 }

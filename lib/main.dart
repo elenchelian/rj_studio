@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'auth/login.dart';
+import 'package:rj_studio/.env';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // Stripe.publishableKey = stripePublishableKey;
+  // await Stripe.instance.applySettings();
   runApp(MyApp());
 }
 
