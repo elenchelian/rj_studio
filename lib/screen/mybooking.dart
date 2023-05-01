@@ -97,7 +97,17 @@ Widget buildCart(List<Booking> services)=> ListView.builder(
                     style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),
                   ),
                   Text(
+                    "Category  ",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
                     "Date  ",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    "Time  ",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20),
                   ),
@@ -129,6 +139,16 @@ Widget buildCart(List<Booking> services)=> ListView.builder(
                   ),
                   Text(
                     " : ",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    " : ",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    " : ",
                     textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 20),
                   ),
@@ -149,7 +169,17 @@ Widget buildCart(List<Booking> services)=> ListView.builder(
                     style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),
                   ),
                   Text(
+                    ser.category,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
                     ser.date,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    ser.time,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20),
                   ),

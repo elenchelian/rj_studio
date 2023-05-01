@@ -11,6 +11,7 @@ class Booking {
   final String date;
   final String price;
   final String category;
+  final String time;
 
   Booking({
     required this.id,
@@ -20,7 +21,8 @@ class Booking {
     required this.date,
     required this.category,
     required this.phonenum,
-    required this.price
+    required this.price,
+    required this.time
 });
 
   static Booking fromJson(json)=> Booking(
@@ -29,6 +31,7 @@ class Booking {
     name: json['name'],
     package: json['package'],
     date: json['date'],
+    time:json['time'],
     phonenum: json['phonenum'],
     price:json['price'],
     category: json['category']
@@ -41,6 +44,7 @@ class Booking {
     "name":name,
     "package":package,
     "date":date,
+    "time":time,
     "phonenum":phonenum,
     "price":price,
     "category":category

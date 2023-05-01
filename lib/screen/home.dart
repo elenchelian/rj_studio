@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:rj_studio/background/allbackground.dart';
+import 'package:rj_studio/screen/audio/main_audio.dart';
 import 'package:rj_studio/screen/photoshoot_service.dart';
 import 'package:rj_studio/screen/printing_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -231,11 +232,11 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.symmetric(vertical: 2),
                         child: ListTile(
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => Courses()),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainAudio()),
+                            );
                           },
                           leading: Padding(
                             padding: EdgeInsets.all(2),

@@ -3,28 +3,31 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/credit_card_form.dart';
+import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:flutter_credit_card/custom_card_type_icon.dart';
-import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutter_credit_card/glassmorphism_config.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rj_studio/background/allbackground.dart';
-import 'package:rj_studio/screen/confirm_booking.dart';
-import 'package:rj_studio/screen/payment_Suc.dart';
-import 'package:rj_studio/.env';
+import 'package:rj_studio/screen/audio/studio_booking.dart';
+import 'package:rj_studio/screen/audio/studio_payment_sucess.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../CallApi/CallApi.dart';
+import '../../.env';
+import '../../CallApi/CallApi.dart';
+import '../../background/allbackground.dart';
+import '../confirm_booking.dart';
+import '../payment_Suc.dart';
 
-class Credit_Card extends StatefulWidget {
 
-  const Credit_Card({Key? key}) : super(key: key);
+class AudioCredit extends StatefulWidget {
+  const AudioCredit({Key? key}) : super(key: key);
+
   @override
-  State<Credit_Card> createState() => _Credit_CardState();
+  State<AudioCredit> createState() => _AudioCreditState();
 }
 
-class _Credit_CardState extends State<Credit_Card> {
+class _AudioCreditState extends State<AudioCredit> {
   String cardNumber = '';
   String expiryDate = '';
   String cardHolderName = '';
@@ -40,9 +43,9 @@ class _Credit_CardState extends State<Credit_Card> {
   String package='';
   String date='';
   String price='';
-  String category='Photoshoot';
+  String time ='';
+  String category='Studio';
   String phoneNumber='';
-  String time = '';
 
   @override
   void initState() {
@@ -73,7 +76,7 @@ class _Credit_CardState extends State<Credit_Card> {
           ),
           title: RichText(
             text: TextSpan(
-              text: 'Credit Card Payment',
+              text: 'Studio Credit Card Payment',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -125,11 +128,11 @@ class _Credit_CardState extends State<Credit_Card> {
                     customCardTypeIcons: <CustomCardTypeIcon>[
                       // CustomCardTypeIcon(
                       //   cardType: CardType.mastercard,
-                      //   // cardImage: Image.asset(
-                      //   //   'assets/mastercard.png',
-                      //   //   height: 48,
-                      //   //   width: 48,
-                      //   // ),
+                      //   cardImage: Image.asset(
+                      //     'assets/mastercard.png',
+                      //     height: 48,
+                      //     width: 48,
+                      //   ),
                       // ),
                     ],
                   ),
@@ -273,7 +276,7 @@ class _Credit_CardState extends State<Credit_Card> {
                             onTap: (){
 
                               Navigator.push(context,
-                                  MaterialPageRoute(builder:(context)=>Confirm_Booking())
+                                  MaterialPageRoute(builder:(context)=>StudioBooking())
                               );
                             },
                             child: Container(
@@ -325,9 +328,9 @@ class _Credit_CardState extends State<Credit_Card> {
         'phonenum':phoneNumber,
         'package':package,
         'price':price,
+        'time':time,
         'date':date,
-        'category':category,
-        'time':time
+        'category':category
       };
 
       var res = await CallApi().BookingSet(data,'register');
@@ -335,7 +338,7 @@ class _Credit_CardState extends State<Credit_Card> {
       if(getVal['success']){
         Fluttertoast.showToast(msg: "The Booking Successful");
         Navigator.push(context,
-            MaterialPageRoute(builder:(context)=>Payment_Successfull())
+            MaterialPageRoute(builder:(context)=>StudioPaymentSuc())
         );
       }else{
         Fluttertoast.showToast(msg: "Cannot Proceed the Booking");
@@ -350,10 +353,10 @@ class _Credit_CardState extends State<Credit_Card> {
     name = pref.getString('custName')!;
     email=pref.getString('custEmail')!;
     phoneNumber=pref.getString('custPhoneNumber')!;
-    package=pref.getString('package_name')!;
-    price = pref.getString('price')!;
-    date = pref.getString('date')!;
-    time = pref.getString('time')!;
+    package=pref.getString('studio_package')!;
+    price = pref.getString('studio_price')!;
+    date = pref.getString('studio_date')!;
+    time = pref.getString('studio_timeslot')!;
   }
 
   void onCreditCardModelChange(CreditCardModel? creditCardModel) {
@@ -372,4 +375,3 @@ class _Credit_CardState extends State<Credit_Card> {
     await Stripe.instance.applySettings();
   }
 }
-

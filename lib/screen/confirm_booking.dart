@@ -22,6 +22,7 @@ class _Confirm_BookingState extends State<Confirm_Booking> {
   var getLine3 = '';
   var getLine4 = '';
   var getDate = '';
+  var getTime = '';
 
   @override
   void initState() {
@@ -103,6 +104,12 @@ class _Confirm_BookingState extends State<Confirm_Booking> {
                               textAlign: TextAlign.left,
                               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
                             ),
+                            SizedBox(height: 10,),
+                            Text(
+                              'Time',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                            ),
                             SizedBox(height: 80,),
                             Text(
                               'Total Amount',
@@ -115,6 +122,13 @@ class _Confirm_BookingState extends State<Confirm_Booking> {
                         Column(
                           children: <Widget>[
                             SizedBox(height: 10),
+                            Text(
+                              ' : ',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 22),
+                            ),
+                            SizedBox(height: 10,),
                             Text(
                               ' : ',
                               textAlign: TextAlign.center,
@@ -180,6 +194,13 @@ class _Confirm_BookingState extends State<Confirm_Booking> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                    fontSize: 20),
+                            ),
+                            SizedBox(height: 10,),
+                            Text(
+                              getTime,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20),
                             ),
                             SizedBox(height: 80,),
                             Text(
@@ -311,6 +332,7 @@ class _Confirm_BookingState extends State<Confirm_Booking> {
     getLine3 = pref.getString('line3')!;
     getLine4 = pref.getString('line4')!;
     getDate = pref.getString('date')!;
+    getTime = pref.getString('time')!;
 
     print(
         getPackagename + getPrice + getLine1 + getLine2 + getLine3 + getLine4);

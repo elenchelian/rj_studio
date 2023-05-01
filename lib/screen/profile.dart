@@ -205,8 +205,8 @@ class _Profile_PageState extends State<Profile_Page> {
                               borderRadius: BorderRadius.circular(20),
                               gradient: const LinearGradient(
                                   colors: [
-                                    Color.fromARGB(255, 255, 136, 34),
-                                    Color.fromARGB(255, 255, 177, 41)
+                                    Color(0xFF6189F1),
+                                    Color(0xFF3863EE),
                                   ],
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter)),
