@@ -1,9 +1,19 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+// import 'package:pdf/pdf.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../CallApi/PdfApi.dart';
 import '../../background/allbackground.dart';
 import '../nav/NavPage.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
+
+
+
+// import 'package:pdf/widgets.dart' as pw;
 
 class StudioPaymentSuc extends StatefulWidget {
   const StudioPaymentSuc({Key? key}) : super(key: key);
@@ -66,7 +76,7 @@ class _StudioPaymentSucState extends State<StudioPaymentSuc> {
 
                 Container(
                   alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Center(
                     // margin: const EdgeInsets.fromLTRB(20, 0, 20, 30),
                     child: Column(
@@ -261,8 +271,8 @@ class _StudioPaymentSucState extends State<StudioPaymentSuc> {
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(20),
                                 splashColor: Color(0xFF7DA0FA),
-                                onTap: () {
-                                  _pdf();
+                                onTap: () async {
+                                  _createPDF();
                                 },
                                 child: const Center(
                                   child: Text(
@@ -323,9 +333,67 @@ class _StudioPaymentSucState extends State<StudioPaymentSuc> {
       ),
     );
   }
-  _pdf() async{
-    final pdfFile = await PdfApi.generateTable();
-    PdfApi.openFile(pdfFile);
+
+  Future<void> _createPDF() async {
+    final pref = await SharedPreferences.getInstance();
+    getPackagename = pref.getString('studio_package')!;
+    getPrice = pref.getString('studio_price')!;
+    getDate = pref.getString('studio_date')!;
+    getTime = pref.getString('studio_timeslot')!;
+    getCustName = pref.getString('custName')!;
+    getCustPhoneNumber = pref.getString('custPhoneNumber')!;
+
+    PdfDocument document = PdfDocument();
+
+    PdfGrid grid = PdfGrid();
+
+    grid.style = PdfGridStyle(
+        font: PdfStandardFont(PdfFontFamily.helvetica, 30),
+        cellPadding: PdfPaddings(left: 5, right: 2, top: 2, bottom: 2));
+
+    grid.columns.add(count: 2);
+    grid.headers.add(1);
+
+    PdfGridRow header = grid.headers[0];
+    header.cells[0].value = 'Pkg Name';
+    header.cells[1].value = getPackagename;
+    // header.cells[2].value = 'Time';
+    // header.cells[3].value = 'Price';
+
+    PdfGridRow row = grid.rows.add();
+    row.cells[0].value = 'Date';
+    row.cells[1].value = getDate;
+
+    row = grid.rows.add();
+    row.cells[0].value = 'Time';
+    row.cells[1].value = getTime;
+
+    row = grid.rows.add();
+    row.cells[0].value = 'Price';
+    row.cells[1].value = getPrice;
+
+
+    grid.draw(
+        page: document.pages.add(), bounds: const Rect.fromLTWH(0, 80, 0, 0));
+
+    PdfPage page = document.pages[0];
+    page.graphics.drawString(
+        'RJ Studio Payment Receipt', PdfStandardFont(PdfFontFamily.helvetica, 40),
+        brush: PdfBrushes.black, bounds: Rect.fromLTWH(80, 10, 400, 60));
+
+    page.graphics.drawString(
+        'Please show this receipt at \nthe counter.', PdfStandardFont(PdfFontFamily.helvetica, 30),
+        brush: PdfBrushes.black, bounds: Rect.fromLTWH(10, 350, 600, 200));
+    _readImageData();
+
+    List<int> bytes = document.save();
+    document.dispose();
+
+    saveAndLaunchFile(bytes, 'Receipt.pdf');
+  }
+  Future<Uint8List> _readImageData() async {
+    final data = await rootBundle.load('assests/rj_icon.jpg');
+    return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   }
 
   _get() async {

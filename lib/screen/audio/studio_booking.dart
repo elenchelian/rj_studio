@@ -31,7 +31,7 @@ class _StudioBookingState extends State<StudioBooking> {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _get();
-      setState(() {
+        setState(() {
         build(context);
       });
     });

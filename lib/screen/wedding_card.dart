@@ -82,7 +82,7 @@ Widget buildCart(List<WeddingCard> services)=> ListView.builder(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
       ),
-      color: Color(0xFF6FA9FC),
+      color: Color(0xD76FA9FC),
       child: Column(
         children: [
           SizedBox(height: 10),

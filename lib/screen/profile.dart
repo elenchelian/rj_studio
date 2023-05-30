@@ -217,6 +217,58 @@ class _Profile_PageState extends State<Profile_Page> {
                 ),
               ),
 
+              SizedBox(height: 10),
+
+              Container(
+                alignment: Alignment.centerRight,
+                margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        height: 40,
+                        child: Container(
+                          child: Material(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(20),
+                              splashColor: Color(0xFF63C5FF),
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder:(context)=>LoginScreen())
+                                );
+
+                              },
+                              child: const Center(
+                                child: Text(
+                                  "Log Out",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              ),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xFF6189F1),
+                                    Color(0xFF3863EE),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
             ],
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:calendar_builder/calendar_builder.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rj_studio/CallApi/CallApi.dart';
 import 'package:rj_studio/background/allbackground.dart';
 import 'package:rj_studio/screen/confirm_booking.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -182,7 +183,9 @@ class _Service_BookingState extends State<Service_Booking> {
                       // if (date.weekday == 6 || date.weekday == 7) {
                       //   return false;
                       // }
-                      //
+                      if (date == DateTime(2023, 5, 23)) {
+                        return false;
+                      }
                       return true;
                     },
                     onChanged: (val) {
@@ -287,7 +290,12 @@ class _Service_BookingState extends State<Service_Booking> {
 
     print(
         getPackagename + getPrice + getLine1 + getLine2 + getLine3 + getLine4);
+
+    var data = CallApi.getMyBookingDate();
+    print(data);
   }
+
+
   _register() async{
     if(date != null && time !=null){
       final pref = await SharedPreferences.getInstance();

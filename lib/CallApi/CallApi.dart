@@ -169,6 +169,21 @@ class CallApi{
     return body.map<Booking>(Booking.fromJson).toList();
   }
 
+  static Future<List<Booking>> getMyBookingDate()async{
+    String email = '';
+    final pref = await SharedPreferences.getInstance();
+    email= pref.getString('custEmail')!;
+    final listurl = 'http://10.0.2.2:8000/api/dateservice';
+
+    final response = await http.post(Uri.parse(listurl));
+    final body = json.decode(response.body);
+    print('******');
+    print(body);
+    print(body.map<Booking>(Booking.fromJson).toList());
+    return body.map<Booking>(Booking.fromJson).toList();
+  }
+
+
   _setHeaders() => {
     'Content-type' : 'application/json',
     'Accept' : 'application/json',
