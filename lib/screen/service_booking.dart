@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:calendar_builder/calendar_builder.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:rj_studio/CallApi/CallApi.dart';
 import 'package:rj_studio/background/allbackground.dart';
 import 'package:rj_studio/screen/confirm_booking.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 
 class Service_Booking extends StatefulWidget {
@@ -26,6 +29,13 @@ class _Service_BookingState extends State<Service_Booking> {
 
   String date = '';
   String time = '';
+  List list = [];
+  // List<Map<String, dynamic>> list = [];
+
+  // final dates = list.map(DateTime.parse).toList();
+  String dates123 = "2023,06,06" ;
+  List<DateTime> _dates = [];
+
 
   final _formKey = GlobalKey<FormState>();
 
@@ -35,9 +45,14 @@ class _Service_BookingState extends State<Service_Booking> {
     // setName=UserSharedPreference.getName();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _get();
+      fetchdetails();
+      // _splitdate();
       setState(() {
         build(context);
       });
+
+      // _dates.add(DateTime(2023, 6, 6));
+      // _dates.add(DateTime(2023, 6, 7));
     });
   }
 
@@ -45,6 +60,7 @@ class _Service_BookingState extends State<Service_Booking> {
   Widget build(BuildContext context) {
     Color bgcolor = Color(0xFFFFFFFF);
     Color color = Color(0xFF5982FF);
+
 
     return SafeArea(
       child: Scaffold(
@@ -141,11 +157,9 @@ class _Service_BookingState extends State<Service_Booking> {
                                 endDate: DateTime(2050),
                                 selectedDate: DateTime.now(),
                                 selectedYear: DateTime(2023),
-                                eventDates: [
-                                  DateTime(2023, 4, 22)
-                                ],
+                                eventDates:_dates,
                               disabledDates: [
-                                DateTime(2023, 4, 24),
+                                // DateTime(2023, 4, 24),
                               ],
                             ),
                             onDateClicked: (onDateClicked) {
@@ -179,11 +193,8 @@ class _Service_BookingState extends State<Service_Booking> {
                     icon: Icon(Icons.event),
                     dateLabelText: 'Select Date',
                     selectableDayPredicate: (date) {
-                      // Disable weekend days to select from the calendar
-                      // if (date.weekday == 6 || date.weekday == 7) {
-                      //   return false;
-                      // }
-                      if (date == DateTime(2023, 5, 23)) {
+
+                      if (_dates.contains(date)) {
                         return false;
                       }
                       return true;
@@ -291,10 +302,49 @@ class _Service_BookingState extends State<Service_Booking> {
     print(
         getPackagename + getPrice + getLine1 + getLine2 + getLine3 + getLine4);
 
-    var data = CallApi.getMyBookingDate();
-    print(data);
+    // var data = CallApi.getMyBookingDate();
+    // print('start date');
+    // print(data.toString());
+    // list=data;
+
   }
 
+  Future<Map<String, dynamic>> fetchdetails() async {
+    final url = 'http://10.0.2.2:8000/api/dateservice';
+
+    final response = await http.post(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+
+      list=data;
+      // print(list);
+      _splitdate();
+      return data;
+    } else {
+      throw Exception('Failed to fetch city counter detail');
+    }
+  }
+
+  _splitdate() async{
+    var getvar;
+    print('Start split');
+    print(list);
+    print(list.length);
+    for(int i=0;i<list.length;i++){
+      getvar = list[i];
+      String getval = getvar.toString();
+      String selectedNum=getval.substring(7,11);
+      String selectedNum1=getval.substring(12,14);
+      String selectedNum2=getval.substring(15,17);
+      var year = int.parse(selectedNum);
+      var month = int.parse(selectedNum1);
+      var day = int.parse(selectedNum2);
+      _dates.add(DateTime(year, month, day));
+    }
+    print("print date list");
+    print(_dates);
+  }
 
   _register() async{
     if(date != null && time !=null){
