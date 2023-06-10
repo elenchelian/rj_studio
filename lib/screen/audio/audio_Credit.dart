@@ -44,6 +44,8 @@ class _AudioCreditState extends State<AudioCredit> {
   String date='';
   String price='';
   String time ='';
+  var deposit = '';
+  var balance = '';
   String category='Studio';
   String phoneNumber='';
 
@@ -330,7 +332,9 @@ class _AudioCreditState extends State<AudioCredit> {
         'price':price,
         'time':time,
         'date':date,
-        'category':category
+        'category':category,
+        'deposit':deposit,
+        'balance':balance
       };
 
       var res = await CallApi().BookingSet(data,'register');
@@ -357,6 +361,16 @@ class _AudioCreditState extends State<AudioCredit> {
     price = pref.getString('studio_price')!;
     date = pref.getString('studio_date')!;
     time = pref.getString('studio_timeslot')!;
+    deposit = pref.getString('studio_deposit')!;
+    String selectedNum=price.substring(3);
+    print(selectedNum);
+    double getdepo = double.parse(deposit);
+    double getprice = double.parse(selectedNum);
+    double calbalance = getprice-getdepo;
+    print("printing balance");
+    print(calbalance);
+    balance = "RM "+calbalance.toString()+"0";
+    print ("print balance stirng:"+balance);
   }
 
   void onCreditCardModelChange(CreditCardModel? creditCardModel) {

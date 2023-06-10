@@ -12,6 +12,8 @@ class Booking {
   final String price;
   final String category;
   final String time;
+  final String deposit;
+  final String balance;
 
   Booking({
     required this.id,
@@ -22,8 +24,11 @@ class Booking {
     required this.category,
     required this.phonenum,
     required this.price,
-    required this.time
+    required this.deposit,
+    required this.time,
+    required this.balance
 });
+
 
   static Booking fromJson(json)=> Booking(
     id: json['id'],
@@ -34,7 +39,9 @@ class Booking {
     time:json['time'],
     phonenum: json['phonenum'],
     price:json['price'],
-    category: json['category']
+    category: json['category'],
+      deposit: json['deposit'],
+    balance: json['balance']
 
   );
 
@@ -47,7 +54,9 @@ class Booking {
     "time":time,
     "phonenum":phonenum,
     "price":price,
-    "category":category
+    "category":category,
+    "deposit":deposit,
+    "balance":balance
   };
 
 }

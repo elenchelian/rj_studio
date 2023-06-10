@@ -115,6 +115,11 @@ class _MyBooking_PageState extends State<MyBooking_Page> {
                       style: TextStyle(fontSize: 20),
                     ),
                     Text(
+                      "Balance ",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Text(
                       "Phone Number ",
                       textAlign: TextAlign.left,
                       style: TextStyle(fontSize: 20),
@@ -138,6 +143,11 @@ class _MyBooking_PageState extends State<MyBooking_Page> {
                     Text(
                       " : ",
                       textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Text(
+                      " : ",
+                      textAlign: TextAlign.left,
                       style: TextStyle(fontSize: 20),
                     ),
                     Text(
@@ -183,6 +193,10 @@ class _MyBooking_PageState extends State<MyBooking_Page> {
                     ),
                     Text(
                       ser.price,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(fontSize: 20),
+                    ),Text(
+                      ser.balance,
                       textAlign: TextAlign.left,
                       style: TextStyle(fontSize: 20),
                     ),

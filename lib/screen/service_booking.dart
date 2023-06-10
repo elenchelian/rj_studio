@@ -30,9 +30,7 @@ class _Service_BookingState extends State<Service_Booking> {
   String date = '';
   String time = '';
   List list = [];
-  // List<Map<String, dynamic>> list = [];
 
-  // final dates = list.map(DateTime.parse).toList();
   String dates123 = "2023,06,06" ;
   List<DateTime> _dates = [];
 

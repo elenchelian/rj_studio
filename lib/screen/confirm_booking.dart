@@ -23,6 +23,7 @@ class _Confirm_BookingState extends State<Confirm_Booking> {
   var getLine4 = '';
   var getDate = '';
   var getTime = '';
+  var deposit = '';
 
   @override
   void initState() {
@@ -35,7 +36,7 @@ class _Confirm_BookingState extends State<Confirm_Booking> {
       });
     });
   }
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Color bgcolor = Color(0xFFFFFFFF);
@@ -62,262 +63,297 @@ class _Confirm_BookingState extends State<Confirm_Booking> {
             centerTitle: true,
             automaticallyImplyLeading: false,
           ),
-          body: AllBackground(
+          body: Form(
+            key: _formKey,
+            child: AllBackground(
 
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 50,),
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 50,),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
 
-                  color: Color(0xFF6D8FFA),
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Column(
-                          children: <Widget>[
-                            SizedBox(height: 10,width: 190,),
-                            Text(
-                              'Customer Name',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              'Phone Number',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              'Package',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              'Date',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              'Time',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-                            ),
-                            SizedBox(height: 80,),
-                            Text(
-                              'Total Amount',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-                            ),
-                            SizedBox(height: 10,),
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            SizedBox(height: 10),
-                            Text(
-                              ' : ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 22),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              ' : ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 22),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              ' : ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 22),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              ' : ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 22),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              ' : ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 22),
-                            ),
-                            SizedBox(height: 80,),
-                            Text(
-                              ' : ',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-                            ),
-                            SizedBox(height: 10,),
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            SizedBox(height: 10),
-                            Text(
-                              getPackagename,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                   fontSize: 20),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              getPrice,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                   fontSize: 20),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              getPackagename,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                   fontSize: 20),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              getDate,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                   fontSize: 20),
-                            ),
-                            SizedBox(height: 10,),
-                            Text(
-                              getTime,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 20),
-                            ),
-                            SizedBox(height: 80,),
-                            Text(
-                              getPrice,
-                              textAlign: TextAlign.left,
-                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-                            ),
-                            SizedBox(height: 10,),
-                          ],
-                        ),
-                      ],
+                    color: Color(0xFF6D8FFA),
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Column(
+                            children: <Widget>[
+                              SizedBox(height: 10,width: 190,),
+                              Text(
+                                'Customer Name',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                'Phone Number',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                'Package',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                'Date',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                'Time',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                              ),
+                              SizedBox(height: 50,),
+                              Text(
+                                'Total Amount',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                              ),
+                              SizedBox(height: 10,),
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
+                              SizedBox(height: 10),
+                              Text(
+                                ' : ',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                ' : ',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                ' : ',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                ' : ',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                ' : ',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              ),
+                              SizedBox(height: 50,),
+                              Text(
+                                ' : ',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                              ),
+                              SizedBox(height: 10,),
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
+                              SizedBox(height: 10),
+                              Text(
+                                getPackagename,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                     fontSize: 20),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                getPrice,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                     fontSize: 20),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                getPackagename,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                     fontSize: 20),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                getDate,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                     fontSize: 20),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                getTime,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20),
+                              ),
+                              SizedBox(height: 50,),
+                              Text(
+                                getPrice,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                              ),
+                              SizedBox(height: 10,),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 50,),
-                Text(
-                  'Payment Method : ',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-                ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Container(
-                    margin: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          height: 40,
-                          child: Container(
-                            child: Material(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.transparent,
-                              child: InkWell(
+                  SizedBox(height: 30,),
+                  Text(
+                    'Enter the Deposit amount :',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                  ),
+                  SizedBox(height: 3,),
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(horizontal: 100),
+                    child: TextFormField(
+                      keyboardType: TextInputType. number,
+                      validator: (value){
+                        if(value==null|| value.isEmpty ){
+                          return 'Please enter your deposit';
+                        }
+                        return null;
+                      },
+                      onChanged: (val){
+                        deposit = val;
+                      },
+                      decoration: InputDecoration(
+                          labelText: "Deposit"
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5,),
+                  Text(
+                    'Deposit is not refundable',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontWeight: FontWeight.normal,fontSize: 14,color: Colors.red),
+                  ),
+                  SizedBox(height: 10,),
+                  Text(
+                    'Payment Method : ',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                  ),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    child: Container(
+                      margin: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            height: 40,
+                            child: Container(
+                              child: Material(
                                 borderRadius: BorderRadius.circular(20),
-                                splashColor: Color(0xFF7DA0FA),
-                                onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder:(context)=>Credit_Card())
-                                  );
-                                },
-                                child: const Center(
-                                  child: Text(
-                                    "Credit Card",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w700),
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(20),
+                                  splashColor: Color(0xFF7DA0FA),
+                                  onTap: () {
+                                    if(_formKey.currentState!.validate()){
+                                      _register();
+                                    }
+                                  },
+                                  child: const Center(
+                                    child: Text(
+                                      "Credit Card",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700),
+                                    ),
                                   ),
                                 ),
                               ),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  gradient: const LinearGradient(
+                                      colors: [
+                                        Color(0xFF7DA0FA),
+                                        Color(0xFF6D8EF9),
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter)),
                             ),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                gradient: const LinearGradient(
-                                    colors: [
-                                      Color(0xFF7DA0FA),
-                                      Color(0xFF6D8EF9),
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter)),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Container(
-                    margin: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          height: 40,
-                          child: Container(
-                            child: Material(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.transparent,
-                              child: InkWell(
+                  Container(
+                    alignment: Alignment.centerRight,
+                    margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    child: Container(
+                      margin: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            height: 40,
+                            child: Container(
+                              child: Material(
                                 borderRadius: BorderRadius.circular(20),
-                                splashColor: Color(0xFF7DA0FA),
-                                onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder:(context)=>NavPage())
-                                  );
-                                },
-                                child: const Center(
-                                  child: Text(
-                                    "Cancel Booking",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w700),
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(20),
+                                  splashColor: Color(0xFF7DA0FA),
+                                  onTap: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder:(context)=>NavPage())
+                                    );
+                                  },
+                                  child: const Center(
+                                    child: Text(
+                                      "Cancel Booking",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700),
+                                    ),
                                   ),
                                 ),
                               ),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  gradient: const LinearGradient(
+                                      colors: [
+                                        Color(0xFF7DA0FA),
+                                        Color(0xFF6D8EF9),
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter)),
                             ),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                gradient: const LinearGradient(
-                                    colors: [
-                                      Color(0xFF7DA0FA),
-                                      Color(0xFF6D8EF9),
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter)),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           )
       ),
@@ -337,4 +373,17 @@ class _Confirm_BookingState extends State<Confirm_Booking> {
     print(
         getPackagename + getPrice + getLine1 + getLine2 + getLine3 + getLine4);
   }
+
+  _register() async{
+    if(deposit != null){
+      final pref = await SharedPreferences.getInstance();
+      print(deposit);
+      pref.setString('deposit',deposit);
+      Navigator.push(context,
+          MaterialPageRoute(builder:(context)=>Credit_Card())
+      );
+    }
+
+  }
+
 }

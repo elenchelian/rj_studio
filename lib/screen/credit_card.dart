@@ -43,6 +43,8 @@ class _Credit_CardState extends State<Credit_Card> {
   String category='Photoshoot';
   String phoneNumber='';
   String time = '';
+  String deposit = '';
+  String balance = '';
 
   @override
   void initState() {
@@ -327,7 +329,9 @@ class _Credit_CardState extends State<Credit_Card> {
         'price':price,
         'date':date,
         'category':category,
-        'time':time
+        'time':time,
+        'deposit':deposit,
+        'balance':balance
       };
 
       var res = await CallApi().BookingSet(data,'register');
@@ -354,6 +358,16 @@ class _Credit_CardState extends State<Credit_Card> {
     price = pref.getString('price')!;
     date = pref.getString('date')!;
     time = pref.getString('time')!;
+    deposit = pref.getString('deposit')!;
+    String selectedNum=price.substring(3);
+    print(selectedNum);
+    double getdepo = double.parse(deposit);
+    double getprice = double.parse(selectedNum);
+    double calbalance = getprice-getdepo;
+    print("printing balance");
+    print(calbalance);
+    balance = "RM "+calbalance.toString()+"0";
+    print ("print balance stirng:"+balance);
   }
 
   void onCreditCardModelChange(CreditCardModel? creditCardModel) {
